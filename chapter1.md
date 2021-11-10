@@ -126,3 +126,39 @@ Proof needs some work to make it concise
 
 ### 1-9
 
+Prove the correctness of the following algorithm for evaluating a polynomial:
+
+a_nx^n + a_(n-1)x^(n-1) + ... + a_1x + a_0.
+
+```
+	Horner(a, x)
+		p = a_n
+		for i from n-1 to 0
+			p = p*x + a_i
+		return p;
+```
+
+> For when n = 0
+
+p = a_0
+
+> For when n = 1
+
+p_1 = a_1 * x + a_0
+
+> for when n = 2
+
+p_2 = (a_2 * x + a_1) * x + a_0
+
+> for when n -1:
+
+p_(n-1) = ((a_(n-1) *  x + a_(n-2)) * x + a_(n-3)) * x .... + a_0
+
+
+Proof needs work
+
+
+
+
+
+
