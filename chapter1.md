@@ -56,10 +56,73 @@ However the optimal is {1,2,5} and {3,4}
 
 ![img](./fig1-7.png)
 
-The algorithm wil find a clique of two and not the optimal clique of three.
+The algorithm wil find a clique of two (nodes in red) and not the optimal clique of three (in green).
 
 
+## Proofs of correctness
+
+### 1-8
+
+> Prove the correctness of the following recursive algorithm to multiply two natural numbers, for all integer constants c >= 2.
+
+```
+Multiply(y,z)
+	if z = 0 then return(0) else
+	return(Multiply(cy, ⌊z/c⌋) + y · (z mod c))
+```
+
+>For when z = 0
+
+Multiply(y,0) = 0
+
+> For when z = 1
+
+Multiply(y,1) = Multiply(cy, 0) + y(1 mod c) = 0 + y = y;
+
+> For when z = 2
+
+Multiply(y,2) = Multiply(cy, ⌊z/c⌋) + y(z mod c)
+
+which for c =2 is:
+
+Multiply(y,2) = Multiply(2y, 1) + y(2 mod 2) = 2y + 0 = 2y
+
+for when c >2 :
+
+Multiply(y,2) = Multiply(cy, 0) + y(c mod 2) = 0 + cy = cy
+
+> Assume z == c
+
+Multiply(y,c) = Multiply(yc, 1) + y (c mod c) = yc;
+
+> Assume z < c
+
+Multiply(y, z) = Multiply(yc, 0) + y * z = yz;
+
+> Assume z > c
+
+Multiply(y, c+1) = Mutiply(cy, 1) + y (c+1 mod c) = cy + y = y(c+1)
+
+> c is 2 is proven, prove c>2
+
+Multiply(y, c+2) = Multiply(cy, 2) + y(2) = cy + 2y = c(y+2)
+
+> Prove 2c-1 
+
+Multiply(y, 2c-1) = Multiply(cy, 1), y(c-1) = cy + y(c-1) = y(2c-1)
+
+> Prove nc
+
+Mutiply(y, nc) = Multiply(cy, n), y(0) = Multiply(cy, n)
+
+Multiply(y nc+x) = Multiply(cy, n) + y(nc+x mod c) = Multiply(cy, n) + yx
+
+which will then eventually reduce to nc < 2c and qed
 
 
+or alternatively prove Multiply(y,z) == Multiply(z,y) and with above it proves it.
 
+Proof needs some work to make it concise
+
+### 1-9
 
