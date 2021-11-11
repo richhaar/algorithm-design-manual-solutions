@@ -157,6 +157,229 @@ p_(n-1) = ((a_(n-1) *  x + a_(n-2)) * x + a_(n-3)) * x .... + a_0
 
 Proof needs work
 
+### 1-10
+
+Prove the correctness of the following sorting algorithm.
+
+```
+Bubblesort(A)
+	for i from n to 1
+		for j from i to i-1
+			if(A[j] > A[j+1])
+				swap the values of A[j] and A[j+1]
+```
+
+> For an empty []
+
+returns []
+
+> For a single item [x]
+
+returns sorted [x]
+
+
+> For two items [x,y]
+
+swaps x,y if x >y, and returns a sorted list
+
+> For three items [x,y,z]
+
+places lowest value in [x,_,_] first position and then sorts the other two
+
+and so on...
+
+
+### 1-11
+
+The greatest common divisor of positive integers x and y is the largest integer d such that d divides x and d divides y. Euclids algorithm to compute gcd(x, y) where x > y reduces the task to a smaller problem:
+
+gcd(x, y) = gcd(y, x mod y)
+
+
+//TODO
+
+## Induction
+
+### 1-12
+
+Prove that the sum of 1...n i = n(n+1)/2 for n>= 0, by induction.
+
+> for n = 1
+
+sum is 1(1+1) /2 = 1
+
+> for n = 2
+
+sum is 2(2+1)/2 = 3
+
+> for n = n + 1
+
+n+1(n+2) / 2 should eq n(n+1)/2 + n+1
+
+(n^2 + 3n + 2) / 2 = (n^2 + n) / 2 + n + 1
+
+n^2 + 3n + 2 = n^2 + n + 2n + 2
+
+n^2 + 2n +2 = n^2 + 3n + 2
+
+
+### 1-13
+
+Prove that the sun of 1...n i^2 = n(n+1)(2n+1)/6 for n>=0 by induction
+
+> for n = 1
+
+1(1+1)(2+1)/6 = 6/6 = 1
+
+> for n = 2
+
+2(2+1)(4+1)/6 = 30/6 = 5
+
+> assume n-1 is correct, test for n:
+
+n(n+1)(2n+1)/6 = n-1(n-1+1)(2(n-1)+1)/6  + (n)^2
+
+(n^2+n)(2n+1)/6 = (n^2-n)(2n -1)/6 + n^2
+
+(n^2+n)(2n+1) = (n^2-n)(2n-1) + 6n^2
+
+2n^3 + n^2 + 2n^2 + n = 2n^3 -n^2 -2n^2 + n + 6n^2
+
+2n^3 + 3n^2 + n = 2n^3 + 3n^2 + n
+
+
+### 1-14
+
+Prove that sum of 1...n i^3 = n^2(n+1)^2/4 for n>=0 by induction
+
+> for n = 1
+
+1^2(1+1)^2 / 4
+
+2^2 / 4 = 1
+
+> for n = 2
+
+2^2(2+1)^2/4
+
+4(3)^2/4
+
+36/4 = 9
+
+>for n+1
+
+(n+1)^2(n+2)^2/4 = n^2(n+1)^2/4 + (n+1)^3
+
+(n+1)^2(n+2)^2 = n^2(n+1)^2 + 4(n+1)^2(n+1)
+
+(n+1)^2(n+2)^2 = (n+1)^2 (n^2 + 4(n+1))
+
+(n+2)^2 = n^2 + 4n + 4
+
+n^2 + 2n + 2n + 4 = n^2 + 4n + 4
+
+### 1-15
+
+Prove that the sum of 1...n i(i+1)(i+2) = n(n+1)(n+2)(n+3)/4
+
+
+> for i = 1
+
+1(2)(3) = 1(1+1)(1+2)(1+3)/4
+
+6 = 2(3)(4)/4
+
+6 = 24/4
+
+> for i = 2
+
+6 + 2(3)(4) = 2(3)(4)(5)/4
+
+30 = 120/4
+
+> assume n-1 is true, prove for n
+
+
+n-1(n)(n+1)(n+2)/4 + n(n+1)(n+2) = n(n+1)(n+2)(n+3)/4
+
+n(n+1)(n+2) ((n-1)/4 + 1) = n(n+1)(n+2)(n+3)/4
+
+(n-1)/4 + 1 = (n+3)/4
+
+(n-1) + 4 = n+3
+
+n+3 = n+3
+
+### 1-16
+
+Prove by induction on n>= 1 that for every a != 1
+
+sum i=0...n a^i = (a^(n+1) - 1) / (a-1)
+
+>for n = 1
+
+a^0 + a^1 = (a^(1+1) - 1) / (a-1)
+
+a + 1 = (a^2 - 1) / (a-1)
+
+(a+1)(a-1) = (a^2 - 1)
+
+a^2 +a -a -1 = a^2 - 1
+
+
+>for n = 2
+
+
+a^0 + a^1 + a^2 = (a^(3) - 1) / (a-1)
+
+a^2 + a + 1 = (a^3 - 1) / (a-1)
+
+(a^2 + a + 1) (a-1) = a^3 - 1
+
+a^3 + a^2 +a - a^2 -a -1 = a^3 - 1
+
+a^3 -1 = a^3 - 1
+
+
+>assume n-1 true, prove for n
+
+(a^(n-1+1) - 1) / (a-1) + a^n = (a^(n+1) - 1) / (a-1)
+
+(a^n - 1) / (a-1) + a^n = (a^(n+1) - 1) / (a-1)
+
+
+a^n -1 + a^n(a-1) = a^(n+1) - 1
+
+a^n(1 + (a-1)) - 1 = a^(n+1) - 1
+
+a^n(a) - 1 = a^(n+1) - 1
+
+a^(n+1) - 1 = a^(n+1) - 1
+
+
+### 1-17
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
