@@ -451,7 +451,7 @@ if (n-2) edges on graph with n-1 vertices, adding a new vertice will mean one mo
 
 Prove by indcution that the sum of the cubes of the first of the first n positive integers is equal to the square of the sum of these integers
 
-e.e. i_0^2 + i_1^3 .... + i_n^3 = (i_0 + i_1 + ... + i_n)^2
+e.g. i_0^2 + i_1^3 .... + i_n^3 = (i_0 + i_1 + ... + i_n)^2
 
 > for n = 1
 
@@ -491,6 +491,107 @@ n^2 + n = 2sum(n)
 
 cheat here and we say we know this is true as it's the formula for the sum, perhaps better way to prove this.
  
+## Estimation
+
+### 1-21
+
+ > Do all the books you own total at least one million pages?
+
+No probably not, even at 1000 books at an average page of roughly 300 each, that would be 300,000
+
+### 1-22
+
+How many words are there in this textbook?
+
+roughly 800 pages, 20 words in a small block, 20 blocks per page. So roughly 400(800) = roughly 320,000.
+
+### 1-23
+
+> How many hours in a million seconds? (Do all calculations in your head)
+
+60 seconds a minute, 3600 seconds in an hour, 1,000,000 / 3,600 = 10,000/36 = bit less than 300, bit more than 250, roughly 280/
+
+> How many days?
+
+Based on previous 280/24 = roughly 11
+
+### 1-24 
+
+> Estimate how many cities and towns in the US
+
+There are roughly 50 states, and a 300,000,000 population
+
+assume even distribution of people in states, 6,000,000 per state, Assume average town/city holds 6000, estimate 1000 towns and cities per state.
+
+so 50,000 towns and cities.
+
+> note: Looking up the answer, gave 20,000 cities and towns and villages in the us in 2018, average population per town/city is far lower
+
+### 1-25
+
+> Estimate how many cubic miles of water flow out of the mouth of the Missipi River each day. Do not look up any supplmental facts. Describe all assumptions.
+
+My lack of knowledge on US geography is showing here, I can base my guesses on seeing Niagara falls in person and assume the flow rate is roughly similar. A cubic mile seems like an absolute vast amount to fill even if you collected it at the bottom of Niagara falls. Rough guess is maybe half an hour to an hour to fill such a space. But that would be 20 cubic miles a day which sounds utterly wrong, so I'll multiply it by a 100 and guess 2000
+
+> Looking it up :  16,792 cubic meters (593,003 cubic feet) of water per second into the Gulf of Mexico which would mean 16,792 by 60 by 60 by 24 = 1450828800 cubic meters per day which is 0.34807234 cubic miles, so I suppose I heavily underestimated the cubic mile.
+
+### 1-26
+
+> How many Starbucks or McDonalds locations are there in your country?
+
+Basing the answer of the previous where there are about 20,000 towns in the US for a roughly 300,000,000 population, and the UK has about a 5th of the size of that, so lets assume 4,000 towns in the UK (I recognise the land in the US per person is higher), so we'll half that to 2,000 towns in the UK and estimate 1/4 towns have a McDonalds/StarBucks so guess 500
+
+> There are actually 1300 mcdonalds in the uk and 1000 starbucks
+
+### 1-27
+
+> How long would it take to empty a bathrub with a drinking straw?
+
+Assume you are drinking at a rate of a litre per minute, Assume 50 litres for a bath, based on a person weighing 50kg might need 50litres of water for a bath. so 50 minutes
+
+### 1-28
+
+> Is disk drive accessed normally measured i milliseconds (thousandth of a second) or microseconds (millionths of a second)?
+
+I would say microseconds, since you can see harddrives advertised with 320Kb/s read/write speeds, meaning over 300,000 reads per second, more than 1 a millisecond.
+
+
+> Does your RAM memory access a word in more or less than a microsecond?
+
+Assuming word here is the 32 bit word definition: I would say less than a microsecond
+
+
+How many instructions can your CPU execute in one year if the machine is left running all the time?
+
+assume 3GHz processor, so 3 Giga operations per second, multiply by 60 and 60 and 24 and 365 gives roughly 95 Peta cycles, assuming one operation per 3 cycles, then 30 Peta operations.
+
+### 1-29
+
+> A sorting algortihm takes 1 second to sort 1,000 items on your achine, How long will it take to sort 10,000 items
+
+>If you belive the algorithm is proportional to n^2
+
+1000^2 operations gives 10 seconds
+
+compared to 10,000^2, or 100x increase of 1000 seconds.
+
+>If algorithm is proportional to nlog(n)
+
+1000 log(1000) = 10 seconds
+1000 x 3 = 10 seconds
+
+change to
+
+10000 x 4 = 40,000 / 3000 = 13x increase so 130 seconds
+
+
+
+
+
+
+
+
+
 
 
 
