@@ -359,6 +359,163 @@ a^(n+1) - 1 = a^(n+1) - 1
 
 ### 1-17
 
+Prove by induction that for n>= 1
+
+The sum of 1...n 1 / (i(i+1)) = n / (n+1)
+
+> for i = 1
+
+1 / (1(2)) = 1 / (1+1)
+
+1/2 = 1/2
+
+> for i = 2
+
+1/2 + 1 / (2(3)) = 2 / (2+1)
+
+1/2 + 1/6 = 2/3
+
+3/6 + 1/6 = 2/3
+
+4/6 = 2/3
+
+> assume n-1 true, prove n
+
+(n-1) / n +  1 / (n(n+1)) = n / n+1
+
+(n-1) / n + 1/(n^2 + n) = n / n+1
+
+n/n - 1/n + 1/(n(n + 1)) = n / (n+1)
+
+(n+1) - (n+1)/n + 1/n = n
+
+n(n+1) - (n+1) + 1 = n^2
+
+n^2 + n -n - 1 + 1 = n^2
+
+n^2 = n^2
+
+
+### 1-18
+
+Prove by induction that n^3+2n is divisible by 3 for all n>= 0
+
+> For n = 0
+
+0^3 + 2 ^0 = 0 which is divisible by 3
+
+> For n=1
+
+1^3 + 2 = 3
+
+> For n = 2
+
+2^3 + 4 = 12
+
+> Assume true for n-1, assume there is 3 x multiple on previous
+
+(n-1)^3 + 2(n-1) + 3x = n^3 + 2n
+
+(n-1)(n-1)(n-1) + 2n - 2 + 3x = n^3 + 2n
+
+(n^2 -2n + 1)(n-1) - 2 + 3x = n^3
+
+n^3 - 2n^2 + n - n^2 + 2n -1 -2 + 3x = n^3
+
+n^3 - 3n^2 + 3n - 3 + 3x = n^3
+
+-3n^2 + 3n -3 + 3x = 0
+
+3x = 3n^2 -3n + 3
+
+Thus showing the difference between n-1 and n is a multiple of 3
+
+### 1-19
+
+Prove by induction that a tree with n vertices has exactly n-1 edges
+
+
+> for n = 1
+
+One node so no edges to connect anything
+
+> for n = 2
+
+Parent node connects to child with 1 edge
+
+> assume true for n-1, test for n
+
+if (n-2) edges on graph with n-1 vertices, adding a new vertice will mean one more connection to the three, hence n-1 edges
+
+### 1-20
+
+Prove by indcution that the sum of the cubes of the first of the first n positive integers is equal to the square of the sum of these integers
+
+e.e. i_0^2 + i_1^3 .... + i_n^3 = (i_0 + i_1 + ... + i_n)^2
+
+> for n = 1
+
+1^3 = 1^2
+
+1 = 1
+
+> for n = 2
+
+1^3 + 2^3 = (1+2)^2
+
+1+8 = 9
+
+9 = 9
+
+> assume true for n prove  for n+1
+
+sum(n)^2 + (n+1)^3 = sum(n+1)^2
+
+(n + n-1 + .... + 1)^2 + (n+1)^3 = (n+1 + n + ... + 1)^2
+
+sum(n)^2 + (n+1)^3 = (n+1 + sum(n))^2
+
+sum(n)^2 + (n+1)^3 = (n+1 + sum(n))(n+1 + sum(n))
+
+sum(n)^2 + (n+1)^3 = (n+1)^2 + 2(n+1)sum(n) + sum(n)^2
+
+(n+1)^3 = (n+1)^2 + 2(n+1)sum(n)
+
+(n+1)^2 = (n+1) + 2(sum(n))
+
+n^2 + 2n + 1 = 2sum(n) + n + 1
+
+n^2 + n = 2sum(n)
+
+(n^2 + n) / 2 = sum(n)
+
+cheat here and we say we know this is true as it's the formula for the sum, perhaps better way to prove this.
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
