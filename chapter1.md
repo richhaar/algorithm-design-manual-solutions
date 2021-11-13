@@ -798,7 +798,7 @@ total dist : 116.569
 
 In this case anyway, ClosestPair is the better choice. Can you derive a heuristic that works better than both of them?
 
-At least this for this example, the closest pair and closest component will be unoptimised on the loop back home.
+At least this for this example, the closest pair and closest component will be unoptimised on the loop back home. I.e. start at the center of mass of all points and connect points in a clockwise fashion.
 
 ![img](./fig1-30.png)
 
@@ -808,6 +808,8 @@ Such that a way to optimise backtracking on the final path or connecting outer c
 ### 1-31
 
 > Describe how to test whether a given set of tickets establishes sufficient coverage in the Lotto problem of Section 1.8 (Page 22). Write a program to find good ticket sets.
+
+// TODO
 
 
 ## Interview Problems
@@ -891,6 +893,66 @@ int intdiv(int32_t x, int32_t const y)
 * Each horse has to race, so it makes sense to begin with five races, although that doesn't give you necessarily the five fastest horses, as the three fastest horses could be in the same group, so it eliminates 6 horses.
 
 * To get the fastest horse you could simply race the five winners, and so the fastest horse can be calculated in 6 races, but the 2nd and 3rd fastest horse is what is more tricky to determine.
+
+The perhaps simple solution, is to do 5 races, to get five vectors of {1,2,3,4,5}, then race do another three races
+
+{1,1,1,1,1}, {2,2,2,2,2}, {3,3,3,3,3} and then perform another race of the 2nd and 3rd next of the fastest horse, and the second horse of the second fastest horse in the first group and the third fastest group of the fast group
+
+i.e.
+
+winners {1a,1b,1c,1d,1e} -> then race {2a, 3a, 1b, 2b, 1c}; and you will have all five fastest horses.
+
+Which means you need 9 races. This can be shown as a picture:
+
+
+![img](./fig1-33.png)
+
+### 1-34
+
+> How many piano tuners are there in the entire world?
+
+### 1-35
+
+> How many gas stations are there in the United states?
+
+Roughly 300 million population in the US, let's say a third are of driving age, have a licence and access to a car.
+Which means 100 million cars need gas. Let's say a gas station can serve 1000 cars a day. Which would mean 100,000 stations would be needed if every single car had to be refuled right now today which obviously is not the case, we can say that a car has to be fueld every 10 days, would give 10,000 stations. Now recalling the number of towns/villages from the previous question being around 15,000 for the US. Having one gas station every 2 out of three towns sounds about right.
+
+> Looking up the answer reveals that was a 10x underestimation, as there are roughly 150,000 gas stations in the US. Which makes sense in hindsight considering the size of the place.
+
+### 1-36
+
+> How much does the ice in a hockey rink weigh?
+
+I'm showing my lack of hockey knowledge by not knowing how thick the ice is, I'm guessing the ice wil be about 2 inches thick, and say roughly 20 by 40meters. 800m^2 of 2 inches thick or about 800m^2 * 5cm or 0.05m so 40m^3. and we'll say that each metre cubed of ice is 1 Ton, so 40 Tonnes.
+
+> Looking it up it looks like the thickness of the ice is 3/4 inch, but the size is more like 26 * 61m. So I would say 40 Tons is still a reasonable guess
+
+### 1-37
+
+> How many miles of road are there in the United states?
+
+Considering you can drive for about 10 hours on the freeway in Texas and still be in Texas, there is bound to be an enormous amount of road. To make it easier, we can estimate the amount of road in one state and multiply it by fifty.
+
+If we imagine driving for 10 hours at 100km/h, we can estimate a road running east to west in Texas at 1000km. And since Texas is slighlty wider than tall, a guess of 800km tall will do. And now to guess, there is a grid of road, such that there are 800 roads running east to west and 1000 roads running north to south spanning the whole distance. Obviously this isn't the case but it'll serve as a grid of road. so 800 * 1000 + 1000 * 800 = 1,600,000 km of road * 50 makes 80,000,000 km of road.
+
+> Looking it up, there is about 6,500,000 km of road, so out by about a factor of ten. Could probably have accounted for the fact that Texas is a large state and the grid might be an over estimation.
+
+### 1- 38
+
+> On average, how many times would you have to flip open the Manhattan phone book at random in order to find a specific name?
+
+Let's say the phonebook is 1000 pages, and there are two pages when you flip it open (ignoring first and last cover special cases), and so everytime you randomly open the book, you see 2 out of 1000 pages. Meaning a 1/500 probability of finding the name that you want, so an average of 500 times.
+
+## LeetCode
+
+### 1-1 https://leetcode.com/problems/daily-temperatures
+
+
+
+
+
+
 
 
 
