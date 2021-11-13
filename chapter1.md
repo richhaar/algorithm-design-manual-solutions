@@ -585,6 +585,92 @@ change to
 10000 x 4 = 40,000 / 3000 = 13x increase so 130 seconds
 
 
+## Implementation Projects
+
+### 1-30
+
+> Implement the two TSP heuristics of Section 1.1 (page 5). Which of them give better solutions in practice? Can you devise a heuristic that works better than both of them?
+
+### 1-31
+
+> Describe how to test whether a given set of tickets establishes sufficient coverage in the Lotto problem of Section 1.8 (Page 22). Write a program to find good ticket sets.
+
+
+## Interview Problems
+
+### 1-32
+
+> Write a function to perform integer division without using either the / or * operators. Find a fast way to do it.
+
+A slow way could be to loop over the number being divided, subtracting the divisor on each iteration e.g.
+
+
+```cpp
+// Divide x by y
+int intdiv(int x, int const y)
+{
+    int divisions = 0;
+    while(x-y >= 0) {
+        x -= y;
+        ++divisions;
+    }
+    return divisions;
+}
+```
+
+Find a fast way to do it:
+
+Some ideas:
+
+* For divison by multiples of two, bitshifting would be quick. e.g. x / 4 would be x >> 2.
+
+Such that `x / 20` would be equivalent to `((x/5) / 2) / 2` Meaning we could factor out any shifts on the divisor before hand. However then doing 6 billion / 21 would still be incredibly slow. So perhaps we can bit shift the divisor up to take the largest chunk possible then bitshift down.
+
+so 200 / 21, would bitshift 21 << to 42, again << to 84 and again << 168, once more to 336. See that it doesn't fit and reverse the process, so 168 goes in once (which is 2^3 of 21) leaving 32, 84 doesnt fit, neither does 42 and down to 21 which is 2^0 shifts, meaning 2^3 + 2^0 = 9 times.
+
+In C++:
+
+```cpp
+#include <cmath>
+
+// Divide x by y
+int intdiv(int32_t x, int32_t const y)
+{
+    int32_t divisions = 0;
+
+    if(x < y) {
+        divisions = 0;
+    } else if (x == y) {
+        divisions = 1;
+    } else {
+        // Find largest multiple of 2 of y that fits in x
+        int64_t shifted_y = y;
+        int32_t shifts = 0;
+        
+        while(shifted_y < x) {
+            shifted_y <<= 1;
+            ++shifts;
+        }
+
+        shifted_y >>= 1;
+        --shifts;
+
+        // Remove consecutively smaller multiples of 2 of y from x
+        while(shifts >= 0) {
+            if(x - shifted_y >= 0) {
+                x-= shifted_y;
+                divisions += powl(2, shifts);
+            }
+            shifted_y >>= 1;
+            --shifts;
+        }
+    }
+
+    return divisions;
+}
+```
+
+
 
 
 
