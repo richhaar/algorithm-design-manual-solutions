@@ -799,7 +799,8 @@ total dist : 116.569
 In this case anyway, ClosestPair is the better choice. Can you derive a heuristic that works better than both of them?
 
 At least this for this example, the closest pair and closest component will be unoptimised on the loop back home.
-![img](./fig1-32.png)
+
+![img](./fig1-30.png)
 
 Such that a way to optimise backtracking on the final path or connecting outer components as opposed to inner components could lead to a better solution.
 
