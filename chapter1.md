@@ -948,7 +948,49 @@ Let's say the phonebook is 1000 pages, and there are two pages when you flip it 
 
 ### 1-1 https://leetcode.com/problems/daily-temperatures
 
+O(n) solution, by iterating back from the end, you can keep track of the days with a higher temperature using a vector.
 
+```cpp
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        
+        auto const n = temperatures.size();
+ 
+        std::array<int32_t, 71> temps{};
+        std::vector<int> results(temperatures.size());
+        
+        for(int i=n-1; i>=0; --i) {
+            auto const temp = temperatures[i];
+            temps[temp-30] = i;
+            
+            
+            int32_t next_hottest_day = std::numeric_limits<int32_t>::max();
+            
+            for(int j= temp+1; j <101; ++j) {
+                auto const next_day_temp = temps[j-30];
+                
+                if(next_day_temp != 0 ) {
+                    auto const days_wait = next_day_temp - i;
+                    if(days_wait < next_hottest_day) {
+                        next_hottest_day = days_wait;
+                    }
+                }
+            }
+            results[i] = next_hottest_day == std::numeric_limits<int32_t>::max() ? 0 : next_hottest_day;
+        }
+        
+        return results;
+    }
+};
+```
+
+### 1-2 https://leetcode.com/problems/rotate-list/
+
+```cpp
+
+
+```
 
 
 
