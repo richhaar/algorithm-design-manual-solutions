@@ -591,6 +591,219 @@ change to
 
 > Implement the two TSP heuristics of Section 1.1 (page 5). Which of them give better solutions in practice? Can you devise a heuristic that works better than both of them?
 
+Example written on Godbolt, note, you can use an unordered_set for the routes, but then you'll have to write a hashing function for a `std::pair<int32_t, int32_t>`.
+
+```cpp
+#include <cmath>
+#include <iostream>
+#include <utility>
+#include <list>
+#include <vector>
+#include <set>
+#include <limits>
+#include <numeric>
+
+using point = std::pair<int32_t, int32_t>;
+
+std::set<point> routes {
+    {0, 0},
+    {10, 0},
+    {10, 10},
+    {20, 10},
+    {30, 0},
+    {20, -10},
+    {10, -20},
+    {0, -30},
+};
+
+double getDistance(point const& p1, point const& p2)
+{
+   auto const [x1, y1] = p1;
+   auto const [x2, y2] = p2;
+   
+   return std::sqrt(std::pow(x2-x1,2) + std::pow(y2-y1, 2));
+}
+
+std::vector<point> NearestNeighbour(std::set<point> destinations)
+{
+    // Pick an initial point
+    std::vector<point> myroute{*destinations.cbegin()};
+    std::set<point> visited{*destinations.cbegin()};
+
+    // Delete the initial point from consideration
+    destinations.erase(destinations.begin());
+
+    while(!destinations.empty()) {
+        double min_dist = std::numeric_limits<double>::max();
+        auto point_to_add = destinations.begin();
+
+        // For each remaining point
+        for(auto iter = destinations.begin(); iter != destinations.end(); ++iter) {
+            // Get distance to existing point in route
+            for(auto const& point : myroute)
+            {
+                auto dist = getDistance(point, *iter);
+                if(dist < min_dist) {
+                    min_dist = dist;
+                    point_to_add = iter;
+                }
+            }
+        }
+
+        // Add the closest point
+        myroute.push_back(*point_to_add);
+        // Remove that point from consideration
+        destinations.erase(point_to_add);
+    }
+
+    std::cout << "Route is : " << std::endl;
+    for(auto const &[x,y] : myroute) {
+        std::cout << " " << x << "\t" << y << std::endl;
+    }
+
+    return myroute;
+}
+
+std::list<point> ClosestPair(std::set<point> destinations)
+{
+    double min_dist = std::numeric_limits<double>::max();
+    auto point_one = destinations.begin();
+    auto point_two = destinations.begin();
+
+    // start off by finding the two closest points
+    for(auto iter = destinations.begin(); iter != destinations.end(); ++iter)
+    {
+        for(auto second_iter = destinations.begin(); second_iter != destinations.end(); ++second_iter)
+        {
+            if(iter == second_iter) {
+                continue;
+            }
+
+            auto const dist = getDistance(*iter, *second_iter);
+
+            if(dist < min_dist) {
+                min_dist = dist;
+                point_one = iter;
+                point_two = second_iter;
+            }
+        }
+    }
+
+    std::list<point> path{*point_one, *point_two};
+    
+    std::cout << "starting with : " << point_one->first << " " << point_one->second << std::endl;
+    std::cout << "and : " << point_two->first << " " << point_two->second << std::endl;
+
+    destinations.erase(point_one);
+    destinations.erase(point_two);
+
+    while(!destinations.empty())
+    {
+        bool add_to_front = true;
+        auto min_dist = std::numeric_limits<double>::max();
+        auto point_to_add = destinations.begin();
+
+        for(auto iter = destinations.begin(); iter != destinations.end(); ++iter)
+        {
+            auto const dist_to_front = getDistance(path.front(), *iter);
+            auto const dist_to_back = getDistance(path.back(), *iter);
+
+            add_to_front = dist_to_front <= dist_to_back;
+
+            if(add_to_front) {
+                if(dist_to_front < min_dist) {
+                    min_dist = dist_to_front;
+                    point_to_add = iter;
+                }
+            } else {
+                if(dist_to_back < min_dist) {
+                    min_dist = dist_to_back;
+                    point_to_add = iter;
+                }
+            }
+        }
+
+        if(add_to_front) {
+            path.push_front(*point_to_add);
+        } else {
+            path.push_back(*point_to_add);
+        }
+
+        destinations.erase(point_to_add);
+    }
+
+    std::cout << "Route is : " << std::endl;
+    for(auto const &[x,y] : path) {
+        std::cout << " " << x << "\t" << y << std::endl;
+    }
+
+    return path;
+}
+
+template<typename T>
+double getTotalDist(T const& path)
+{
+    double total_dist = 0.0;
+    auto last_item = path.back();
+
+    for(auto const &item: path) {
+        total_dist += getDistance(item, last_item);
+        last_item = item;
+    }
+
+    return total_dist;
+}
+
+
+int main()
+{
+    auto const path = NearestNeighbour(routes);
+    auto const dist = getTotalDist(path);
+    std::cout << "total dist : " << dist << std::endl;
+
+    auto const pathTwo = ClosestPair(routes);
+    auto const distTwo = getTotalDist(pathTwo);
+    std::cout << "total dist : " << distTwo << std::endl;
+
+    return 0;
+}
+```
+
+Gives output:
+
+```
+Route is : 
+ 0	-30
+ 10	-20
+ 20	-10
+ 10	0
+ 0	0
+ 10	10
+ 20	10
+ 30	0
+total dist : 133.137
+starting with : 0 0
+and : 10 0
+Route is : 
+ 0	0
+ 10	0
+ 10	10
+ 20	10
+ 30	0
+ 20	-10
+ 10	-20
+ 0	-30
+total dist : 116.569
+```
+
+In this case anyway, ClosestPair is the better choice. Can you derive a heuristic that works better than both of them?
+
+At least this for this example, the closest pair and closest component will be unoptimised on the loop back home.
+![img](./fig1-32.png)
+
+Such that a way to optimise backtracking on the final path or connecting outer components as opposed to inner components could lead to a better solution.
+
+
 ### 1-31
 
 > Describe how to test whether a given set of tickets establishes sufficient coverage in the Lotto problem of Section 1.8 (Page 22). Write a program to find good ticket sets.
@@ -669,6 +882,14 @@ int intdiv(int32_t x, int32_t const y)
     return divisions;
 }
 ```
+
+### 1-33
+
+> There are twenty-five horses. At most, five horses can race together at a time. You must determine the fastest, second fastest and third fastest horses. Find the minimum number of races in which this can be done.
+
+* Each horse has to race, so it makes sense to begin with five races, although that doesn't give you necessarily the five fastest horses, as the three fastest horses could be in the same group, so it eliminates 6 horses.
+
+* To get the fastest horse you could simply race the five winners, and so the fastest horse can be calculated in 6 races, but the 2nd and 3rd fastest horse is what is more tricky to determine.
 
 
 
