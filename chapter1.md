@@ -948,7 +948,7 @@ Let's say the phonebook is 1000 pages, and there are two pages when you flip it 
 
 ### 1-1 https://leetcode.com/problems/daily-temperatures
 
-O(n) solution, by iterating back from the end, you can keep track of the days with a higher temperature using a vector.
+O(n) solution, by iterating back from the end, you can keep track of the days with a higher temperature using a vector. I'm unsure how it relates to the chapter unless the intended solution was to use a bubble-sort like algorithm i.e. O(n^2) runtime.
 
 ```cpp
 class Solution {
@@ -988,7 +988,59 @@ public:
 ### 1-2 https://leetcode.com/problems/rotate-list/
 
 ```cpp
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        // Find number of nodes
+        // k mod list size
+        // cut the loop at that point for new head
+        // Link tail to head
 
+        // Find number of nodes
+        ListNode* node = head;
+        int32_t n = 0;
+        while(node) {
+            node = node->next;
+            ++n;
+        }
+       
+        if(n < 2 || k < 1) {
+            return head;
+        }
+        
+        std::cout << "n : " << n << std::endl;
+        
+        k = k % n;
+        
+        std::cout << "rotate by: " << k << std::endl;
+        
+        if(k==0) {
+            return head;
+        }
+        
+        auto steps = n - k;
+        
+        std::cout << "have to make " << steps << " new head" << std::endl;
+        
+        node = head;
+
+        while(steps-- > 1) {
+            node = node->next;    
+        }
+        
+        auto new_head = node->next;
+        node->next = nullptr;
+        
+        node = new_head;
+        while(node->next) {
+            node = node->next;
+        }
+        node->next = head;
+        
+        return new_head;
+        
+    }
+};
 
 ```
 
