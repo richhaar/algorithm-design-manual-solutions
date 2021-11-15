@@ -1046,7 +1046,27 @@ public:
 
 ### 1-3 https://leetcode.com/problems/wiggle-sort-ii/
 
-
+```cpp
+class Solution {
+public:
+    void wiggleSort(vector<int>& nums) {
+        vector<int> nums_copy(nums);
+        sort(nums_copy.begin(), nums_copy.end());
+        
+        auto n = nums.size();
+        auto mid = n%2==1? n/2 +1 : n/2;
+        
+        for(int i=0; i< nums.size(); ++i)
+        {
+            if(i%2 == 0) {
+                nums[i] = nums_copy[--mid];
+            } else {
+                nums[i] = nums_copy[--n];
+            }
+        }
+    }
+};
+```
 
 
 
