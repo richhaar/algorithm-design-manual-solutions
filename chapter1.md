@@ -1046,6 +1046,8 @@ public:
 
 ### 1-3 https://leetcode.com/problems/wiggle-sort-ii/
 
+A nlog(n) solution, can be done in O(n) however. This way does a sort, then interleaves the smallest and largest half of the ascending array in descending order.
+
 ```cpp
 class Solution {
 public:
