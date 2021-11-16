@@ -1070,6 +1070,80 @@ public:
 };
 ```
 
+## HackerRank
+
+### 1-1 https://www.hackerrank.com/challenges/array-left-rotation
+
+The simplest way is to make a copy, and just index with modulus, could possibly speed it up by doing two large memcpys instead.
+
+```cpp
+vector<int> rotateLeft(int d, vector<int> arr) {
+    auto const n = arr.size();
+    std::vector<int> arr_copy(n);
+    
+    for(int32_t i=0; i<n; ++i) {
+       arr_copy[i] = arr[(i + d) % n];
+    }
+    
+    return arr_copy;
+}
+```
+
+### 1-2 https://www.hackerrank.com/challenges/kangaroo
+
+Again we can use of the modulus operator and check if both kangaroos meet each other on a whole time step.
+
+```cpp
+string kangaroo(int x1, int v1, int x2, int v2) {
+    if(x1 > x2 && v1>= v2) {
+        return "NO";
+    } else if(x2 > x1 && v2 >= v1) {
+        return "NO";
+    } else {
+        //x1 + v1*t == x2 + v2*t
+        auto const diff_x = x1 - x2;
+        auto const diff_v = v2 -v1;
+        return diff_x % diff_v == 0? "YES" : "NO";
+    }
+}
+```
+
+### 1-3 https://www.hackerrank.com/challenges/hackerland-radio-transmitters 
+
+```cpp
+int hackerlandRadioTransmitters(vector<int> x, int k) {
+    std::sort(x.begin(), x.end());
+    int32_t covered = 0;
+    int32_t transmitters = 0;
+    
+    for(int i=0; i<x.size(); ++i)
+    {
+        if(x[i] > covered) {
+            // item isn't covered by radio, find next item covered by k
+            auto index = i;
+            
+            for(int j=i+1; j<x.size(); ++j) {
+                if(x[j] <= x[i] + k) {
+                    // can use this house as transmitter
+                    index = j;
+                } else {
+                    break;
+                }
+            }
+            
+            ++transmitters;
+            covered = x[index] + k;       
+        }
+    }
+    
+    return transmitters;
+}
+```
+
+## Programming Chalennges
+
+
+
 
 
 
