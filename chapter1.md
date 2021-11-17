@@ -1110,6 +1110,7 @@ string kangaroo(int x1, int v1, int x2, int v2) {
 
 ### 1-3 https://www.hackerrank.com/challenges/hackerland-radio-transmitters 
 
+Solution is simple if you consider it similar to the movie scheduling problem described earlier in the chapter.
 ```cpp
 int hackerlandRadioTransmitters(vector<int> x, int k) {
     std::sort(x.begin(), x.end());
@@ -1140,9 +1141,107 @@ int hackerlandRadioTransmitters(vector<int> x, int k) {
 }
 ```
 
-## Programming Chalennges
+## Programming Challenges - Online Judge
 
+### 100 - "The 3n+1 Problem"
 
+```cpp
+#include <iostream>
+#include <vector>
+#include <numeric>
+#include <unordered_map>
+
+int32_t algorithm(int32_t start) {
+    static std::unordered_map<int32_t, int32_t> map;
+    if(map.find(start) != map.cend()) {
+        return map[start];
+    } else {
+       int32_t ret = 1;
+        if(start != 1) {
+            if(start%2==1) {
+                ret = 1 + algorithm(start*3 + 1);
+            } else {
+                ret = 1 + algorithm(start/2);
+            }
+        }
+        map[start] = ret;
+        return ret;
+    }
+}
+
+int32_t getMax(int32_t i, int32_t j)
+{
+    int32_t max = algorithm(i);
+    for(int32_t z=i+1; z<=j; ++z)
+    {
+        auto const alg = algorithm(z);
+        if(alg > max) {
+            max = alg;
+        }
+    }
+    return max;
+}
+
+int main()
+{
+    int32_t i;
+    int32_t j;
+
+    while(std::cin >> i >> j) {
+    	std::cout << i << " " << j << " " << getMax(i, j) << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### 10317 - The Trip
+
+TODO : Needs reformatting to fit OnlineJudge entry and more consideration of rounding to nearest cent
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <functional>
+
+double min_exchange(std::vector<double> costs)
+{
+    auto const sum = std::accumulate(costs.cbegin(), costs.cend(), 0.0);
+    auto const n = costs.size();
+    auto const avg = sum / n;
+
+    double above = 0.0;
+    double below = 0.0;
+
+    for(auto const& cost : costs) {
+        if(cost > avg) {
+            above += cost - avg;
+        } else {
+            below += avg - cost;
+        }
+    }
+
+    return above;
+}
+
+int main()
+{
+    std::cout << min_exchange({10.0, 20.0, 30.0}) << std::endl;
+    std::cout << min_exchange({15.0, 15.01, 3.00, 3.01}) << std::endl;
+    return 0;
+}
+```
+
+output
+
+```
+10
+12
+```
+
+### 10142 - Australian Voting
+
+// TODO
 
 
 
