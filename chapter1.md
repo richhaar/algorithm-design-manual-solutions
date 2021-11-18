@@ -1241,8 +1241,138 @@ output
 
 ### 10142 - Australian Voting
 
-// TODO
+C++20 solution, written in godbolt, needs adjustment to accept input for onlinejudge submission.
 
+```cpp
+#include <iostream>
+#include <vector>
+#include <numeric>
+#include <unordered_map>
+#include <algorithm>
+#include <list>
+int main()
+{
+    std::vector<std::string> candidates {
+       "John Doe",
+       "Jane Smith",
+       "Sirhan Sirhan",
+    };
+    // map vote -> vector of list
+    std::unordered_map<int32_t, std::vector<std::list<int32_t>>> votes{};
+    auto const insert = [&](std::list<int32_t>& l) {
+        if(l.empty()) {
+            return;
+        }
+        auto const candidate = l.front();
+        l.pop_front();
+        if(!l.empty()) {
+            // get vector in map and insert
+            if(votes.contains(candidate)) {
+                votes[candidate].push_back(l);
+            } else {
+                std::vector<std::list<int32_t>> vec_of_l{l};
+                votes[candidate] = vec_of_l;
+            }
+        }
+    };
+    std::vector<std::list<int32_t>> ballots {
+        {2,1,3},
+        {2,1,3},
+        {2,3,1},
+        {1,2,3},
+        {3,1,2},
+        // my extras
+        {3,1,2},
+        {3,1,2},
+    };
+    for(auto& list: ballots) {
+        insert(list);
+    }
+    auto const totalBallots = ballots.size();
+    auto const winner = [&]() {
+        for(auto const& [k,v] : votes) {
+            auto const percentage = (double) v.size() / totalBallots;
+            if(percentage > 0.5) {
+                return k-1;
+            }
+        }
+        return -1;
+    };
+    auto const printVotes = [&]() {
+        for(auto const& [k,v] : votes) {
+            std::cout << "candidates : " << candidates[k-1] << " " << v.size() << std::endl;
+        }
+    };
+    auto const tied = [&]() {
+        return votes.size() > 1 && std::all_of(votes.cbegin(), votes.cend(), [&](auto const& entry) {
+            auto const& [k, v] = entry;
+            return v.size() == totalBallots / v.size();
+        });
+    };
+    auto const addLeftover =[&](std::list<int32_t>& l) {
+        for(;;) {
+            if(l.empty()) {
+                return;
+            }
+            auto const candidate = l.front();
+            l.pop_front();
+            if(votes.contains(candidate)) {
+                votes[candidate].push_back(l);
+                return;
+            }
+        }
+    };
+    bool completed = false;
+    int32_t round = 0;
+    while(!completed) {
+        std::cout << "-----" << "round " << round++ << " -----" << std::endl;
+        printVotes();
+        auto const winning_candidate = winner();
+        if(winning_candidate >= 0) {
+            std::cout << "Winner is " << candidates[winning_candidate] << std::endl;
+            completed = true;
+        } else if (tied()) {
+            std::cout << "Tie in votes" << std::endl;
+            completed = true;
+        } else {
+            // find all minimums, remove them
+            // create big vector of lists // append them all and remove rest
+            auto min = totalBallots;
+            for(auto const& [k,v] : votes) {
+                min = std::min(min, v.size());
+            }
+            std::vector<std::list<int32_t>> remaining_votes;
+            for(auto iter = votes.begin(); iter != votes.end();) {
+                auto const& [k,v] = *iter;
+                if(v.size() == min) {
+                    // remove candidate from consideration
+                    for(auto const& list : v) {
+                        remaining_votes.push_back(list);
+                    }
+                    iter = votes.erase(iter);
+                } else {
+                    ++iter;
+                }
+            }
+            for(auto& list : remaining_votes) {
+                addLeftover(list);
+            }
+        }
+    }
+    return 0;
+}
+```
+
+```
+-----round 0 -----
+candidates : Sirhan Sirhan 3
+candidates : John Doe 1
+candidates : Jane Smith 3
+-----round 1 -----
+candidates : Sirhan Sirhan 3
+candidates : Jane Smith 4
+Winner is Jane Smith
+```
 
 
 
