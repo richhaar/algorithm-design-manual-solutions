@@ -327,8 +327,6 @@ b) For n^3, a double in size results in a 8x increase as (2n)^3 = 8n^3, for a si
  
 c) For 100n^2, a double in size would still be a 4x increase as 100(2n)^2 = 400n^2,
  
-// Wrong??
- 
 100(n+1)^2 - 100n^2 = 100(n^2 + 2n + 1) - 100n^2 = 200n + 100 increase for 1 increase in n;
  
 d) n log n
@@ -339,7 +337,7 @@ if n doubles -> 2n log 2n
  
 2 * log_n(2n) increase
  
-add 1 = (n+1) log n+1 - n log n
+add 1 = increase of (n+1) log n+1 - n log n
  
 
 e) 2^n

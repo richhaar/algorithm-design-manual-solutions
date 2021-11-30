@@ -13,12 +13,12 @@ If one value is `0` and the other negative such as `a=-1, b=0` then `min(a,b) = 
 ### 1-3
 > Design/draw a road network with two points `a` and `b` such that the fastest route between `a` and `b` is not the shorted route
 
-![img](./fig1-3.png)
+![img](./src/fig1-3.png)
 
 ### 1-4
 > Design/draw a road network with two points `a` and `b` such that the shortest route between $a$ and `b` is not the route with the fewest turns
 
-![img](./fig1-4.png)
+![img](./src/fig1-4.png)
 
 ### 1-5
 
@@ -54,7 +54,7 @@ However the optimal is {1,2,5} and {3,4}
 >The maximum clique problem in a graph G = (V, E) asks for the largest subset C of vertices V such that there is an edge E between every pair of vertices in C. Find a counterexample for the following algorithm: Sort the vertices of G from highest to lowest degree. Considering the vertices in order of degree, for each vertex add it to the clique if it is a neighbour of all vertices currently in the clique, repeat until all vertices have been considered.
 
 
-![img](./fig1-7.png)
+![img](./src/fig1-7.png)
 
 The algorithm wil find a clique of two (nodes in red) and not the optimal clique of three (in green).
 
@@ -800,7 +800,7 @@ In this case anyway, ClosestPair is the better choice. Can you derive a heuristi
 
 At least this for this example, the closest pair and closest component will be unoptimised on the loop back home. I.e. start at the center of mass of all points and connect points in a clockwise fashion.
 
-![img](./fig1-30.png)
+![img](./src/fig1-30.png)
 
 Such that a way to optimise backtracking on the final path or connecting outer components as opposed to inner components could lead to a better solution.
 
@@ -905,7 +905,7 @@ winners {1a,1b,1c,1d,1e} -> then race {2a, 3a, 1b, 2b, 1c}; and you will have al
 Which means you need 9 races. This can be shown as a picture:
 
 
-![img](./fig1-33.png)
+![img](./src/fig1-33.png)
 
 ### 1-34
 
